@@ -1,0 +1,36 @@
+
+<!DOCTYPE html> <!-- 이 문서가 어떤 형식인지 선언한다 -->
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>HTMl</title>
+    <style>
+    </style>
+  </head>
+  <body>
+    <button id="btn1" type="button" onclick="console.log('zzzzz')">버튼1</button>
+<script>
+
+  var btn1 = document.querySelector("#btn1")
+
+
+  btn1.addEventListener('click', function() {
+    console.log('11111');
+  })
+  btn1.onclick = function(){
+    console.log('xxxxx');
+  }
+  btn1.addEventListener('click', function() {
+    console.log('22222');
+  })
+  btn1.addEventListener('click', function() {
+    console.log('33333');
+  })
+  btn1.addEventListener('click', function() {
+    console.log('44444');
+  })
+
+</script>
+</body>
+</html>

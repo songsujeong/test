@@ -1,0 +1,91 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <Link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+  <style>
+  .container {
+  width: 600px;
+  margin: 0px auto;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>학생 목록</h1>
+
+<table id="student-tbl" class="table table-hover">
+
+  <thead>
+    <tr>
+      <th>번호</th>
+      <th>이름</th>
+      <th>전화</th>
+      <th>이메일</th>
+      <th>재직여부</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<button type="button" class="btn btn-primary" id="add-btn">추가</button>
+</div>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+
+/* AJAX응용II
+*/
+"use strict"
+
+  var tbody = $('#student-tbl > tbody'),
+      addBtn = $('#add-btn');            //querySelectorAll에서 값을 한개 꺼낼 때 [0]
+
+
+$.ajax('http://localhost:8080/webapp/student/list.json?pageNo=1&pageSize=8', {
+  dataType: 'json',
+  success: function(result) {
+    if(result.status != 'success'){
+      alert('데이터를 가져오는데 실패했습니다')
+      return
+    }
+
+    var list = result.data.list
+    for (var s of list) {
+      $("<tr>").html("<td>" + s.memberNo +
+              "</td><td><a href='#' data-no='" + s.memberNo + "' class = 'view-link'>" + s.name +
+              "</td><td>" + s.tel +
+              "</td><td>" + s.email +
+              "</td><td>" + (s.working ? "재직중" : "실업") + "</td>")
+              .appendTo(tbody)
+    }
+      $('table .view-link').click(onClickViewLink)
+    }
+  })
+
+
+  function onClickViewLink(event) {
+    // console.log(this["data-no"]) //태그의 원래 있던 속성이 아닐경우, 이런 식으로 값을 꺼낼수 없다
+    // console.log(this.getAttribute("data-no"));
+
+    location.href = 'test11_view.html?no=' + $(this).attr('data-no') // $+(this) 이면 this는 태그값
+    event.preventDefault()
+  }
+
+  addBtn.click(function() {
+    location.href = 'test11_view.html'
+  })
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->

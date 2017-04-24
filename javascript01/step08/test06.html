@@ -1,0 +1,86 @@
+<!-- AJAX 사용법 -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HTML</title>
+  <style>
+  body{
+    background-color: gray;
+  }
+  body>div {
+    border: 1px solid red;
+    min-height: 300px;
+  }
+  </style>
+</head>
+<body>
+  <h1>GET 요청</h1>
+  링크:<a href="http://localhost:8080/webapp/student/list.json?pageNo=1&pageSize=6">요청</a><br>
+  폼:
+  <form action="http://localhost:8080/webapp/student/list.json" method="get">
+    페이지번호: <input type="text" name="pageNo"><br>
+    페이지크기: <input type="text" name="pageSize"><br>
+    <button>요청</button>
+</form>
+  <h1>POST 요청</h1>
+  <form action="http://localhost:8080/webapp/student/list.json" method="post">
+    페이지번호: <input type="text" name="pageNo"><br>
+    페이지크기: <input type="text" name="pageSize"><br>
+    <button>요청</button>
+  </form>
+  <button id="btn1" type="button">서버에 요청하기</button><br>
+  <textarea id ="ta" rows="20" cols="80"></textarea>
+<script>
+/* HTTP(Hyper-Text Transfer Protocol) 프로토콜
+*/
+"use strict"
+var btn1 = document.querySelector('#btn1')
+var ta = document.querySelector('#ta')
+
+var xhr;
+btn1.addEventListener('click', function(event) {
+  xhr = new XMLHttpRequest()
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState < 4)
+      return
+
+    ta.value = xhr.responseText
+  }
+  xhr.open('get', 'http://localhost:8080/webapp/student/list.json', true)
+  xhr.send()
+})
+
+/*
+
+GET /webapp/student/list.json?pageNo=2&pageSize=8 HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,
+
+
+
+POST /webapp/student/list.json HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 19                   // pageNo=2&pageSize=8 갯수
+Pragma: no-cache
+Cache-Control: no-cache
+Origin: null
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+*/
+
+</script>
+</body>
+</html>
+
+
+
+
+<!-- -->
